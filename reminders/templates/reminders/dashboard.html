@@ -1,0 +1,26 @@
+<h2>Your Medications</h2>
+
+<!-- Button to add a new medication -->
+<p><a href="{% url 'add_dosage' %}" class="btn btn-primary">Add New Medication</a></p>
+
+{% if dosages %}
+    <ul style="list-style-type: none;">
+    {% for dosage in dosages %}
+        <li style="margin-bottom: 20px;">
+            <strong>{{ dosage.medication_name }}</strong> - {{ dosage.dosage }} <br>
+            Take {{ dosage.number_of_times }} time(s) a day:
+            <ul>
+                <li>Time 1: {{ dosage.time_1 }}</li>
+                {% if dosage.time_2 %}<li>Time 2: {{ dosage.time_2 }}</li>{% endif %}
+                {% if dosage.time_3 %}<li>Time 3: {{ dosage.time_3 }}</li>{% endif %}
+                {% if dosage.time_4 %}<li>Time 4: {{ dosage.time_4 }}</li>{% endif %}
+                {% if dosage.time_5 %}<li>Time 5: {{ dosage.time_5 }}</li>{% endif %}
+            </ul>
+            SMS reminder will be sent to {{ dosage.phone_number }}
+        </li>
+        <br> <!-- Add space between each medication -->
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>You have not added any medications yet. <a href="{% url 'add_dosage' %}">Add Medication</a></p>
+{% endif %}

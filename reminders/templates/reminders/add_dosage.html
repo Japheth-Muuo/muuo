@@ -1,0 +1,51 @@
+<h2>Add Medication</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.medication_name.label_tag }} {{ form.medication_name }}<br>
+    {{ form.dosage.label_tag }} {{ form.dosage }}<br>
+    {{ form.phone_number.label_tag }} {{ form.phone_number }}<br>
+    
+    <!-- Number of times per day -->
+    {{ form.number_of_times.label_tag }} {{ form.number_of_times }}<br>
+    
+    <!-- Time input fields, which will be dynamically shown or hidden -->
+    <div id="time_1" style="display: none;">
+        {{ form.time_1.label_tag }} {{ form.time_1 }}<br>
+    </div>
+    <div id="time_2" style="display: none;">
+        {{ form.time_2.label_tag }} {{ form.time_2 }}<br>
+    </div>
+    <div id="time_3" style="display: none;">
+        {{ form.time_3.label_tag }} {{ form.time_3 }}<br>
+    </div>
+    <div id="time_4" style="display: none;">
+        {{ form.time_4.label_tag }} {{ form.time_4 }}<br>
+    </div>
+    <div id="time_5" style="display: none;">
+        {{ form.time_5.label_tag }} {{ form.time_5 }}<br>
+    </div>
+
+    <button type="submit">Add Medication</button>
+</form>
+
+<script>
+    // JavaScript to show/hide time input fields based on the number of times selected
+    const numberOfTimesField = document.querySelector('#id_number_of_times');
+    const timeFields = [
+        document.getElementById('time_1'),
+        document.getElementById('time_2'),
+        document.getElementById('time_3'),
+        document.getElementById('time_4'),
+        document.getElementById('time_5')
+    ];
+
+    function updateTimeFields() {
+        const numberOfTimes = parseInt(numberOfTimesField.value);
+        timeFields.forEach((field, index) => {
+            field.style.display = (index < numberOfTimes) ? 'block' : 'none';
+        });
+    }
+
+    numberOfTimesField.addEventListener('change', updateTimeFields);
+    document.addEventListener('DOMContentLoaded', updateTimeFields);  // Trigger on page load
+</script>
